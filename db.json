@@ -1,29 +1,19 @@
 {
   "todos": [
     {
-      "text": "kjb ",
+      "text": "Learn CSS",
       "completed": false,
-      "id": 21
+      "id": 1
     },
     {
-      "text": "kjnkln",
+      "text": "Learn JS",
       "completed": false,
-      "id": 22
+      "id": 2
     },
     {
-      "text": "lknlk",
+      "text": "Learn React",
       "completed": false,
-      "id": 23
-    },
-    {
-      "text": "kjbb",
-      "completed": false,
-      "id": 24
-    },
-    {
-      "text": "lnblkjn",
-      "completed": false,
-      "id": 25
+      "id": 3
     }
   ]
 }

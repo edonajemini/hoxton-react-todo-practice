@@ -76,13 +76,6 @@ function App () {
           <li className='listof-todos'>{todo.text}</li>
         </span>
   
-        <button className='delete-btn'
-          onClick={() => {
-            deleteTodo(todo.id)
-          }}
-        >
-          X
-        </button>
 
         <button className='check-btn' 
         onClick={()=>{
@@ -100,6 +93,13 @@ function App () {
         }}
         >
           ✔️
+        </button>
+        <button className='delete-btn'
+          onClick={() => {
+            deleteTodo(todo.id)
+          }}
+        >
+          X
         </button>
       </li>
       ))}
