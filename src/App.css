@@ -1,23 +1,53 @@
 .App {
   text-align: center;
+  border: thin solid gray;
+  margin: 50px 400px;
+  background-color: pink;
 }
-.first-list {
-  list-style: none;
-  display: grid;
-  grid-auto-flow: column;
+h1 {
+  color: white;
+  font-weight: 300;
+  font-family: 'Courier New', Courier, monospace;
+}
+.search-input {
+  width: 200px;
+  height: 20px;
+  margin: 10px;
+  background-color: rgba(128, 128, 128, 0.473);
+  color: white;
+}
+.search-input::placeholder {
+  color: pink;
+  padding-left: 10px;
+}
+.addtodoform-input {
+  width: 200px;
+  height: 20px;
+  margin: 10px;
+}
+.add-btn {
+  width: 50px;
+  height: 25px;
 }
 
-.done-list-smaller {
-  margin-left: 200px;
-  background-color: azure;
-  margin-top: 20px;
-  border-bottom: thin solid pink;
-  width: 300px;
-  height: 30px;
+ul {
+  list-style: none;
 }
-.done-list-smaller:hover {
-  background-color: rgba(213, 220, 220, 0.474);
+.delete-btn {
+  margin-left: 5px;
+  text-align: center;
+  border: none;
+  background-color: rgba(128, 128, 128, 0.473);
+  color: pink;
 }
-.done-list-smaller:active {
-  background-color: pink;
+.listof-todos{
+  list-style: none;
+  display: inline;
+}
+.completed {
+  text-decoration:underline;
+}
+.completed-h {
+  color: white;
+  font-weight: 300;
 }

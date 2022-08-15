@@ -1,27 +1,97 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+function App () {
+  const [search, setSearch] = useState('')
+  const [todos, setTodos] = useState([])
+  const filteredTodos = todos.filter(todo =>
+    todo.text.toLowerCase().includes(search.toLowerCase())
+  )
+  useEffect(() => {
+    fetch('http://localhost:4000/todos')
+      .then(resp => resp.json())
+      .then(todosFromServer => setTodos(todosFromServer))
+  }, [])
+
+  
+  function deleteTodo (id: number) {
+    const todosCopy = todos.filter(todo => todo.id !== id)
+
+    fetch(`http://localhost:4000/todos/${id}`, {
+      method: 'DELETE'
+    })
+
+    setTodos(todosCopy)
+  }
+
+  function createTodo (text: string) {
+    let newTodo = {
+      text: text,
+      completed: false
+    }
+
+    fetch('http://localhost:4000/todos', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newTodo)
+    })
+      .then(resp => resp.json())
+      .then(todoFromServer => {
+        setTodos([...todos, todoFromServer])
+      })
+  }
 
   return (
     <div className="App">
       <h1>To do APP</h1>
-      <ul className='first-list'>
-        <li className='done-list'>Done ✔️
-          <li className='done-list-smaller'>Learn HTML</li>
-          <li className='done-list-smaller'>Learn CSS</li>
-          <li className='done-list-smaller'>Learn JS</li>
-          <li className='done-list-smaller'>Learn TypeScript</li>
-          <li className='done-list-smaller'>Learn React</li>
-        </li>
-
-        <li className='notdone-list'>Not done yet!
-            <li className='done-list-smaller'>Learn servers</li>
-            <li className='done-list-smaller'>Learn Node </li>
-            <li className='done-list-smaller'>Learn Java</li>
-        </li>
-      </ul>
+      <input className='search-input'
+      placeholder='search'
+      onChange={event => {
+        setSearch(event.target.value)
+      }} />
+    <form
+      onSubmit={event => {
+        event.preventDefault()
+        createTodo(event.target.text.value)
+        event.target.reset()
+      }}
+    >
+    <input className='addtodoform-input'
+        type='text'
+        placeholder='TODO Name'
+        name='text'
+        required
+      />
+      <button className='add-btn'>ADD</button>
+      
+    </form>
+    <ul>
+      {filteredTodos.map(todo => (
+        <li className={todo.completed ? 'completed' : ''}>
+        <span >
+          <li className='listof-todos'>{todo.text}</li>
+        </span>
+  
+        <button className='delete-btn'
+          onClick={() => {
+            deleteTodo(todo.id)
+          }}
+        >
+          ✔️
+        </button>
+      </li>
+      ))}
+    </ul>
+    <h3 className='completed-h'> Completed !</h3>
+          <ul>
+              {todos.map(item => (
+                <li className='completed'>
+                  <p>{item.text}😍</p>
+                </li>
+              ))}
+            </ul>
     </div>
   )
 }
