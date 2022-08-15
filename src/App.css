@@ -1,4 +1,23 @@
 .App {
   text-align: center;
 }
+.first-list {
+  list-style: none;
+  display: grid;
+  grid-auto-flow: column;
+}
 
+.done-list-smaller {
+  margin-left: 200px;
+  background-color: azure;
+  margin-top: 20px;
+  border-bottom: thin solid pink;
+  width: 300px;
+  height: 30px;
+}
+.done-list-smaller:hover {
+  background-color: rgba(213, 220, 220, 0.474);
+}
+.done-list-smaller:active {
+  background-color: pink;
+}
