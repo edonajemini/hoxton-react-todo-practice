@@ -7,6 +7,9 @@ function App () {
   const filteredTodos = todos.filter(todo =>
     todo.text.toLowerCase().includes(search.toLowerCase())
   )
+  const completedTodos = todos.filter(todo =>
+    todo.completed)
+
   useEffect(() => {
     fetch('http://localhost:4000/todos')
       .then(resp => resp.json())
@@ -29,7 +32,6 @@ function App () {
       text: text,
       completed: false
     }
-
     fetch('http://localhost:4000/todos', {
       method: 'POST',
       headers: {
@@ -79,6 +81,24 @@ function App () {
             deleteTodo(todo.id)
           }}
         >
+          X
+        </button>
+
+        <button className='check-btn' 
+        onClick={()=>{
+          const todosCopy = structuredClone(todos);
+          const match = todosCopy.find((target) => target.id === todo.id);
+          match.completed = !match.completed;
+          fetch('http://localhost:4000/todos/${match.id}'),{
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body:JSON.stringify(match),
+          }
+          setTodos(todosCopy);
+        }}
+        >
           ✔️
         </button>
       </li>
@@ -86,7 +106,7 @@ function App () {
     </ul>
     <h3 className='completed-h'> Completed !</h3>
           <ul>
-              {todos.map(item => (
+              {completedTodos.map(item => (
                 <li className='completed'>
                   <p>{item.text}😍</p>
                 </li>
